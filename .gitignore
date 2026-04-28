@@ -1,8 +1,12 @@
 node_modules/
-build/
 dist/
-coverage/
+dist-ssr/
 .DS_Store
+.env
+.env.local
+.env.*.local
 *.log
-.env*
-!.env.example
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
