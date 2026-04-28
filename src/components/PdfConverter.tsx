@@ -146,20 +146,17 @@ export default function PdfConverter() {
       const scaleX = width / defaultViewport.width;
       const scaleY = height / defaultViewport.height;
 
-      // We use scaleX for the viewport to get crisp text rendering
-      // We'll scale the context to match the exact requested Y dimension if it differs
-      const viewport = page.getViewport({ scale: scaleX });
+      const needsStretch = Math.abs(scaleX - scaleY) > 0.01;
+      
+      // We use the maximum scale to render the PDF crisp before stretching
+      const renderScale = needsStretch ? Math.max(scaleX, scaleY) : scaleX;
+      const viewport = page.getViewport({ scale: renderScale });
 
       const canvas = document.createElement('canvas');
-      canvas.width = Math.floor(width);
-      canvas.height = Math.floor(height);
+      canvas.width = Math.round(viewport.width);
+      canvas.height = Math.round(viewport.height);
       const ctx = canvas.getContext('2d');
       if (!ctx) throw new Error('Cannot get canvas context');
-
-      // If aspect ratio changed, we need to scale the Y axis
-      if (Math.abs(scaleX - scaleY) > 0.01) {
-        ctx.scale(1, scaleY / scaleX);
-      }
 
       // White background for non-transparent formats
       if (format === 'image/jpeg') {
@@ -169,10 +166,29 @@ export default function PdfConverter() {
 
       await page.render({ canvasContext: ctx, viewport }).promise;
 
+      let targetCanvas = canvas;
+
+      // If aspect ratio changed, stretch using a second canvas
+      if (needsStretch) {
+        targetCanvas = document.createElement('canvas');
+        targetCanvas.width = Math.round(width);
+        targetCanvas.height = Math.round(height);
+        const targetCtx = targetCanvas.getContext('2d');
+        if (!targetCtx) throw new Error('Cannot get target canvas context');
+
+        if (format === 'image/jpeg') {
+          targetCtx.fillStyle = '#FFFFFF';
+          targetCtx.fillRect(0, 0, targetCanvas.width, targetCanvas.height);
+        }
+
+        // Stretch the rendered PDF image to the target dimensions
+        targetCtx.drawImage(canvas, 0, 0, targetCanvas.width, targetCanvas.height);
+      }
+
       // Use toDataURL as fallback if toBlob fails
       return new Promise<Blob>((resolve, reject) => {
         try {
-          canvas.toBlob(
+          targetCanvas.toBlob(
             (blob) => {
               if (blob) {
                 resolve(blob);
