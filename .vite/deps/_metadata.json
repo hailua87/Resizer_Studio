@@ -1,0 +1,64 @@
+{
+  "hash": "82648b2d",
+  "configHash": "a286aa5c",
+  "lockfileHash": "4c5cf579",
+  "browserHash": "834137e8",
+  "optimized": {
+    "react/jsx-dev-runtime": {
+      "src": "../../node_modules/react/jsx-dev-runtime.js",
+      "file": "react_jsx-dev-runtime.js",
+      "fileHash": "ebc39860",
+      "needsInterop": true
+    },
+    "react": {
+      "src": "../../node_modules/react/index.js",
+      "file": "react.js",
+      "fileHash": "444afa18",
+      "needsInterop": true
+    },
+    "react-dom/client": {
+      "src": "../../node_modules/react-dom/client.js",
+      "file": "react-dom_client.js",
+      "fileHash": "e8fdf1c1",
+      "needsInterop": true
+    },
+    "motion/react": {
+      "src": "../../node_modules/motion/dist/es/react.mjs",
+      "file": "motion_react.js",
+      "fileHash": "ed555290",
+      "needsInterop": false
+    },
+    "lucide-react": {
+      "src": "../../node_modules/lucide-react/dist/esm/lucide-react.js",
+      "file": "lucide-react.js",
+      "fileHash": "5aff9646",
+      "needsInterop": false
+    },
+    "pdfjs-dist": {
+      "src": "../../node_modules/pdfjs-dist/build/pdf.mjs",
+      "file": "pdfjs-dist.js",
+      "fileHash": "9fce49ea",
+      "needsInterop": false
+    },
+    "jszip": {
+      "src": "../../node_modules/jszip/dist/jszip.min.js",
+      "file": "jszip.js",
+      "fileHash": "82763956",
+      "needsInterop": true
+    },
+    "file-saver": {
+      "src": "../../node_modules/file-saver/dist/FileSaver.min.js",
+      "file": "file-saver.js",
+      "fileHash": "5013ccde",
+      "needsInterop": true
+    }
+  },
+  "chunks": {
+    "chunk-E3EC3WKU": {
+      "file": "chunk-E3EC3WKU.js"
+    },
+    "chunk-SNAQBZPT": {
+      "file": "chunk-SNAQBZPT.js"
+    }
+  }
+}

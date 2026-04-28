@@ -539,7 +539,11 @@ export default function PdfConverter() {
                   </span>
                 </div>
                 <div className="text-[10px] text-surface-400 italic">
-                  {format === 'image/png' ? 'PNG' : 'JPG'} • {getOutputWidth()}px • {selectedCount > 1 ? 'ZIP Archive' : 'Single File'}
+                  {format === 'image/png' ? 'PNG' : 'JPG'} • {
+                    selectedSize === 'custom' 
+                      ? `${customWidth}x${customHeight || 'auto'}` 
+                      : `${OUTPUT_SIZES.find((s) => s.id === selectedSize)?.width || 1920}px`
+                  } • {selectedCount > 1 ? 'ZIP Archive' : 'Single File'}
                 </div>
               </div>
 
